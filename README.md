@@ -4,9 +4,14 @@
 
 ### ASAP
 
-- [ ] Add `このリポジトリの目的` section
-  - React.js とその関連技術を学ぶため
-  - 自分自身が使うため
+- [ ] Update README.md
+  - [ ] Add `このリポジトリの目的` section
+    - React.js をはじめとするフロントエンド技術の練習をするため
+    - 自分自身が使うため
+  - [ ] Add `このリポジトリの方針` section
+    - とりあえず色々試す
+      - フロントエンド技術のサンドボックス的な
+      - コミット履歴などは汚くなっても気にしない
 - [ ] Add `.editorconfig`
 - [ ] Update TODO
   - [ ] とりあえず React で Hello World する
