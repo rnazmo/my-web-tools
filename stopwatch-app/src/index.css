@@ -9,8 +9,6 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -28,6 +26,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: #CEB896;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
@@ -35,7 +38,18 @@ h1 {
   line-height: 1.1;
 }
 
+.elapsed-time {
+  font-size: 2.5rem;
+  font-weight: 500;
+  font-family: monospace;
+}
+
+.milliseconds {
+  font-size: 1.5rem;
+}
+
 button {
+  width: 140px;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
