@@ -27,7 +27,7 @@ function Stopwatch() {
     // 時間の計算：経過時間（elapsedTime）を、1時間あたりのミリ秒数（3600000ミリ秒）で割る
     const getHours = Math.floor(elapsedTime / 3600000);
     // 分の計算：時間の計算して残ったミリ秒数（`elapsedTime % 3600000`）を、1分あたりのミリ秒数（60000ミリ秒）で割る
-    const getMinutes = Math.floor((elapsedTime % 360000) / 6000);
+    const getMinutes = Math.floor((elapsedTime % 3600000) / 60000);
     // 秒の計算：分の計算して残ったミリ秒数（`elapsedTime % 60000`）を、1秒あたりのミリ秒数（1000ミリ秒）で割る
     const getSeconds = Math.floor((elapsedTime % 60000) / 1000);
     // ミリ秒の計算：秒の計算して残ったミリ秒数（`elapsedTime % 1000`）を、そのまま使う
