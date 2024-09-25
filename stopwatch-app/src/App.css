@@ -1,0 +1,11 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  display: flex;
+}
+
+ul {
+  padding-left: 0;
+}
