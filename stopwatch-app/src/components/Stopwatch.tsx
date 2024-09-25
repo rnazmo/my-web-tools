@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 function Stopwatch() {
   const [isActive, setIsActive] = useState(false);
@@ -48,26 +49,47 @@ function Stopwatch() {
   const { hours, minutes, seconds, milliseconds } = formatTime(elapsedTime);
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Stopwatch App</h1>
-      <div className="elapsed-time">
-        {hours}:{minutes}:{seconds}.
-        <span className="milliseconds">{milliseconds}</span>
-      </div>
-      <div>
-        <button onClick={() => setIsActive(!isActive)}>
-          {isActive ? "Stop" : "Start"}
-        </button>
-        <button
-          onClick={() => {
-            setIsActive(false);
-            setElapsedTime(0);
-          }}
-        >
-          Reset
-        </button>
-      </div>
-    </div>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col xs={12} md={6} className="text-center">
+          <div className="display-1 mb-4 font-monospace">
+            {hours}:{minutes}:{seconds}.
+            <span className="display-6">{milliseconds}</span>
+          </div>
+          <div>
+            {!isActive ? (
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={() => setIsActive(!isActive)}
+                className="me-2"
+              >
+                Start
+              </Button>
+            ) : (
+              <Button
+                variant="warning"
+                size="lg"
+                onClick={() => setIsActive(!isActive)}
+                className="me-2"
+              >
+                Pause
+              </Button>
+            )}
+            <Button
+              variant="danger"
+              size="lg"
+              onClick={() => {
+                setIsActive(false);
+                setElapsedTime(0);
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
