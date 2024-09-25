@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Offcanvas, Button } from 'react-bootstrap';
 
-interface SidebarProps {
-  isOpen: boolean;
-  toggleSidebar: () => void;
-}
+function Sidebar() {
+  const [show, setShow] = useState(false);
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-    <div style={{
-      width: isOpen ? '200px' : '0',
-      overflow: 'hidden',
-      transition: 'width 0.3s',
-      backgroundColor: '#f4f4f4',
-      height: '100vh',
-      position: 'fixed',
-      left: 0,
-      top: 0,
-    }}>
-      <button onClick={toggleSidebar}>閉じる</button>
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-        <li><Link to="/">アプリメニュー</Link></li>
-        <li><Link to="/stopwatch">ストップウォッチ</Link></li>
-        <li><Link to="/timer">タイマー</Link></li>
-      </ul>
-    </div>
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Open Sidebar
+      </Button>
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <nav>
+            <ul>
+              <li><Link to="/" onClick={handleClose}>Home</Link></li>
+              <li><Link to="/stopwatch" onClick={handleClose}>Stopwatch</Link></li>
+              <li><Link to="/timer" onClick={handleClose}>Timer</Link></li>
+            </ul>
+          </nav>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
-};
+}
 
 export default Sidebar;

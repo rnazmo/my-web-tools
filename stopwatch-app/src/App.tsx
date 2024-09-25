@@ -1,33 +1,23 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Stopwatch from './components/Stopwatch';
-import Timer from './components/Timer';
-import Sidebar from './components/Sidebar';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Sidebar from './components/Sidebar.tsx';
+import Home from './components/Home.tsx';
+import Stopwatch from './components/Stopwatch.tsx';
+import Timer from './components/Timer.tsx';
 
-const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
+function App() {
   return (
-    <Router>
-      <button onClick={toggleSidebar} style={{ marginLeft: '10px', marginTop: '10px' }}>
-        {isSidebarOpen ? 'サイドバーを閉じる' : 'サイドバーを開く'}
-      </button>
-
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-
-      <div style={{ marginLeft: isSidebarOpen ? '200px' : '0', transition: 'margin-left 0.3s' }}>
+    <BrowserRouter>
+      <div>
+        <Sidebar />
         <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="/stopwatch" element={<Stopwatch />} />
           <Route path="/timer" element={<Timer />} />
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
