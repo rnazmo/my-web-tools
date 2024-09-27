@@ -4,31 +4,39 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function Stopwatch() {
   const [isRunning, setIsRunning] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0); // the time is in milliseconds
+  const [elapsedMilliSec, setElapsedMilliSec] = useState(0);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     if (isRunning) {
       intervalId = setInterval(
-        () => setElapsedTime((prevTime) => prevTime + 10),
+        () => setElapsedMilliSec((prevTime) => prevTime + 10),
         10
       ); // Update per 10ms
     }
     return () => clearInterval(intervalId);
-  }, [isRunning, elapsedTime]);
+  }, [isRunning, elapsedMilliSec]);
 
+  const toggleRunning = () => {
+    setIsRunning((isRunning) => !isRunning);
+  };
+
+  const reset = () => {
+    setIsRunning(false);
+    setElapsedMilliSec(0);
+  };
   const extractTime = (
-    elapsedTime: number
+    milliSec: number
   ): {
     hours: string;
     minutes: string;
     seconds: string;
     milliseconds: string;
   } => {
-    const hours = Math.floor(elapsedTime / 3600000);
-    const minutes = Math.floor((elapsedTime % 3600000) / 60000);
-    const seconds = Math.floor((elapsedTime % 60000) / 1000);
-    const milliseconds = Math.floor(elapsedTime % 1000);
+    const hours = Math.floor(milliSec / 3600000);
+    const minutes = Math.floor((milliSec % 3600000) / 60000);
+    const seconds = Math.floor((milliSec % 60000) / 1000);
+    const milliseconds = Math.floor(milliSec % 1000);
     return {
       hours: padWithZero(hours),
       minutes: padWithZero(minutes),
@@ -39,16 +47,10 @@ export default function Stopwatch() {
 
   const padWithZero = (num: number, length: number = 2): string =>
     num.toString().padStart(length, "0");
-  const { hours, minutes, seconds, milliseconds } = extractTime(elapsedTime);
 
-  const toggleRunning = () => {
-    setIsRunning((isRunning) => !isRunning);
-  };
+  const { hours, minutes, seconds, milliseconds } =
+    extractTime(elapsedMilliSec);
 
-  const reset = () => {
-    setIsRunning(false);
-    setElapsedTime(0);
-  };
   return (
     <>
       <h1 className="text-3xl font-bold mb-6">Stopwatch</h1>
