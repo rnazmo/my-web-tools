@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Link } from "react-router-dom";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   return (
@@ -11,7 +11,9 @@ export default function Home() {
             <CardTitle>Stopwatch</CardTitle>
           </CardHeader>
           <CardContent>
-            <Link to="/stopwatch" className="text-blue-500 hover:underline">Try it</Link>
+            <Link to="/stopwatch" className="text-blue-500 hover:underline">
+              Try it
+            </Link>
           </CardContent>
         </Card>
         <Card>
@@ -19,10 +21,12 @@ export default function Home() {
             <CardTitle>Timer</CardTitle>
           </CardHeader>
           <CardContent>
-            <Link to="/timer" className="text-blue-500 hover:underline">Try it</Link>
+            <Link to="/timer" className="text-blue-500 hover:underline">
+              Try it
+            </Link>
           </CardContent>
         </Card>
       </div>
     </>
-  )
+  );
 }
