@@ -3,35 +3,31 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Stopwatch = () => {
   const [isRunning, setIsRunning] = useState(false);
-  const [elapsedTimeInMilliseconds, setElapsedTimeInMilliseconds] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0); // the time is in milliseconds
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-
+    let intervalId: NodeJS.Timeout;
     if (isRunning) {
-      interval = setInterval(() => {
-        setElapsedTimeInMilliseconds((prevTime) => prevTime + 10); // 10ミリ秒ごとに更新
-      }, 10);
-    } else if (!isRunning && elapsedTimeInMilliseconds !== 0) {
-      clearInterval(interval);
+      intervalId = setInterval(
+        () => setElapsedTime((prevTime) => prevTime + 10),
+        10
+      ); // Update per 10ms
     }
+    return () => clearInterval(intervalId);
+  }, [isRunning, elapsedTime]);
 
-    return () => clearInterval(interval);
-  }, [isRunning, elapsedTimeInMilliseconds]);
-
-  const formatTime = (
-    elapsedTimeInMilliseconds: number
+  const extractTime = (
+    elapsedTime: number
   ): {
     hours: string;
     minutes: string;
     seconds: string;
     milliseconds: string;
   } => {
-    const hours = Math.floor(elapsedTimeInMilliseconds / 3600000);
-    const minutes = Math.floor((elapsedTimeInMilliseconds % 3600000) / 60000);
-    const seconds = Math.floor((elapsedTimeInMilliseconds % 60000) / 1000);
-    const milliseconds = Math.floor(elapsedTimeInMilliseconds % 1000);
-
+    const hours = Math.floor(elapsedTime / 3600000);
+    const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+    const seconds = Math.floor((elapsedTime % 60000) / 1000);
+    const milliseconds = Math.floor(elapsedTime % 1000);
     return {
       hours: padWithZero(hours),
       minutes: padWithZero(minutes),
@@ -42,9 +38,7 @@ const Stopwatch = () => {
 
   const padWithZero = (num: number, length: number = 2): string =>
     num.toString().padStart(length, "0");
-  const { hours, minutes, seconds, milliseconds } = formatTime(
-    elapsedTimeInMilliseconds
-  );
+  const { hours, minutes, seconds, milliseconds } = extractTime(elapsedTime);
 
   const toggleRunning = () => {
     setIsRunning((isRunning) => !isRunning);
@@ -52,7 +46,7 @@ const Stopwatch = () => {
 
   const reset = () => {
     setIsRunning(false);
-    setElapsedTimeInMilliseconds(0);
+    setElapsedTime(0);
   };
 
   return (
