@@ -2,51 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 function Stopwatch() {
-  const [isActive, setIsActive] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [elapsedTimeInMilliseconds, setElapsedTimeInMilliseconds] = useState(0);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (isActive) {
+    if (isRunning) {
       interval = setInterval(() => {
-        setElapsedTime((prevTime) => prevTime + 10); // 10ミリ秒ごとに更新
+        setElapsedTimeInMilliseconds((prevTime) => prevTime + 10); // 10ミリ秒ごとに更新
       }, 10);
-    } else if (!isActive && elapsedTime !== 0) {
+    } else if (!isRunning && elapsedTimeInMilliseconds !== 0) {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [isActive, elapsedTime]);
+  }, [isRunning, elapsedTimeInMilliseconds]);
 
-  function formatTime(elapsedTime: number): {
+  const formatTime = (elapsedTimeInMilliseconds: number): {
     hours: string;
     minutes: string;
     seconds: string;
     milliseconds: string;
-  } {
-    // 時間の計算：経過時間（elapsedTime）を、1時間あたりのミリ秒数（3600000ミリ秒）で割る
-    const getHours = Math.floor(elapsedTime / 3600000);
-    // 分の計算：時間の計算して残ったミリ秒数（`elapsedTime % 3600000`）を、1分あたりのミリ秒数（60000ミリ秒）で割る
-    const getMinutes = Math.floor((elapsedTime % 3600000) / 60000);
-    // 秒の計算：分の計算して残ったミリ秒数（`elapsedTime % 60000`）を、1秒あたりのミリ秒数（1000ミリ秒）で割る
-    const getSeconds = Math.floor((elapsedTime % 60000) / 1000);
-    // ミリ秒の計算：秒の計算して残ったミリ秒数（`elapsedTime % 1000`）を、そのまま使う
-    const getMilliseconds = Math.floor(elapsedTime % 1000);
+  } => {
+    const hours = Math.floor(elapsedTimeInMilliseconds / 3600000);
+    const minutes = Math.floor((elapsedTimeInMilliseconds % 3600000) / 60000);
+    const seconds = Math.floor((elapsedTimeInMilliseconds % 60000) / 1000);
+    const milliseconds = Math.floor(elapsedTimeInMilliseconds % 1000);
 
     return {
-      hours: padZero(getHours),
-      minutes: padZero(getMinutes),
-      seconds: padZero(getSeconds),
-      milliseconds: padZero(Math.floor(getMilliseconds / 10)), // ミリ秒は下2桁だけ表示したい
+      hours: padWithZero(hours),
+      minutes: padWithZero(minutes),
+      seconds: padWithZero(seconds),
+      milliseconds: padWithZero(milliseconds / 10), // Show only last 2 digits of milliseconds
     };
-  }
+  };
 
-  function padZero(num: number, length: number = 2): string {
-    return num.toString().padStart(length, "0");
-  }
+  const padWithZero = (num: number, length: number = 2): string =>
+    num.toString().padStart(length, "0");
 
-  const { hours, minutes, seconds, milliseconds } = formatTime(elapsedTime);
+  const { hours, minutes, seconds, milliseconds } = formatTime(elapsedTimeInMilliseconds);
 
   return (
     <Container className="mt-5">
@@ -57,11 +52,11 @@ function Stopwatch() {
             <span className="display-6">{milliseconds}</span>
           </div>
           <div>
-            {!isActive ? (
+            {!isRunning ? (
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => setIsActive(!isActive)}
+                onClick={() => setIsRunning(!isRunning)}
                 className="me-2"
               >
                 Start
@@ -70,7 +65,7 @@ function Stopwatch() {
               <Button
                 variant="warning"
                 size="lg"
-                onClick={() => setIsActive(!isActive)}
+                onClick={() => setIsRunning(!isRunning)}
                 className="me-2"
               >
                 Pause
@@ -80,8 +75,8 @@ function Stopwatch() {
               variant="danger"
               size="lg"
               onClick={() => {
-                setIsActive(false);
-                setElapsedTime(0);
+                setIsRunning(false);
+                setElapsedTimeInMilliseconds(0);
               }}
             >
               Reset
@@ -92,5 +87,3 @@ function Stopwatch() {
     </Container>
   );
 }
-
-export default Stopwatch;
