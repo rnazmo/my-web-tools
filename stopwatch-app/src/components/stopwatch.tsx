@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
-const Stopwatch = () => {
+export default function Stopwatch() {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0); // the time is in milliseconds
 
@@ -48,43 +49,23 @@ const Stopwatch = () => {
     setIsRunning(false);
     setElapsedTime(0);
   };
-
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
-        <Col xs={12} md={6} className="text-center">
-          <div className="display-1 mb-4 font-monospace">
+    <>
+      <h1 className="text-3xl font-bold mb-6">Stopwatch</h1>
+      <Card>
+        <CardContent className="flex flex-col items-center p-6">
+          <div className="text-6xl font-mono mb-6">
             {hours}:{minutes}:{seconds}.
-            <span className="display-6">{milliseconds}</span>
+            <span className="text-4xl">{milliseconds}</span>
           </div>
-          <div>
-            {!isRunning ? (
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={toggleRunning}
-                className="me-2"
-              >
-                Start
-              </Button>
-            ) : (
-              <Button
-                variant="warning"
-                size="lg"
-                onClick={toggleRunning}
-                className="me-2"
-              >
-                Pause
-              </Button>
-            )}
-            <Button variant="danger" size="lg" onClick={reset}>
-              Reset
+          <div className="space-x-4">
+            <Button onClick={toggleRunning}>
+              {isRunning ? "Start" : "Pause"}
             </Button>
+            <Button onClick={reset}>Reset</Button>
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </CardContent>
+      </Card>
+    </>
   );
-};
-
-export default Stopwatch;
+}
