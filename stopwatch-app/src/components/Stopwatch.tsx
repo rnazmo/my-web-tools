@@ -40,8 +40,16 @@ function Stopwatch() {
 
   const padWithZero = (num: number, length: number = 2): string =>
     num.toString().padStart(length, "0");
-
   const { hours, minutes, seconds, milliseconds } = formatTime(elapsedTimeInMilliseconds);
+
+  const toggleRunning = () => {
+    setIsRunning((isRunning) => !isRunning);
+  };
+
+  const reset = () => {
+    setIsRunning(false);
+    setElapsedTimeInMilliseconds(0);
+  };
 
   return (
     <Container className="mt-5">
@@ -56,7 +64,7 @@ function Stopwatch() {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => setIsRunning(!isRunning)}
+                onClick={toggleRunning}
                 className="me-2"
               >
                 Start
@@ -65,7 +73,7 @@ function Stopwatch() {
               <Button
                 variant="warning"
                 size="lg"
-                onClick={() => setIsRunning(!isRunning)}
+                onClick={toggleRunning}
                 className="me-2"
               >
                 Pause
@@ -74,10 +82,7 @@ function Stopwatch() {
             <Button
               variant="danger"
               size="lg"
-              onClick={() => {
-                setIsRunning(false);
-                setElapsedTimeInMilliseconds(0);
-              }}
+              onClick={reset}
             >
               Reset
             </Button>
