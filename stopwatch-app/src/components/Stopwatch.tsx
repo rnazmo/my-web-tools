@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-function Stopwatch() {
+const Stopwatch = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTimeInMilliseconds, setElapsedTimeInMilliseconds] = useState(0);
 
@@ -92,3 +92,5 @@ function Stopwatch() {
     </Container>
   );
 }
+
+export default Stopwatch;
