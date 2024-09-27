@@ -28,7 +28,6 @@ export default function Layout() {
           </Button>
         </header>
         <main className="p-4">
-          {/* {children} */}
           <Outlet />
         </main>
       </div>
