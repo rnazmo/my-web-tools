@@ -32,6 +32,9 @@ export default function Layout() {
           <Link to="/pomodoro" className="block px-4 py-2 hover:bg-gray-700">
             Pomodoro Timer
           </Link>
+          <Link to="/uuid-v4" className="block px-4 py-2 hover:bg-gray-700">
+            UUID v4 Generator
+          </Link>
         </nav>
       </aside>
       <div className="flex-1">

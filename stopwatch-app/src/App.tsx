@@ -4,6 +4,7 @@ import Home from "./components/home";
 import Stopwatch from "./components/stopwatch";
 import Timer from "./components/timer";
 import Pomodoro from "./components/pomodoro";
+import UUIDv4 from "./components/uuid-v4";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
             <Route path="/stopwatch" element={<Stopwatch />} />
             <Route path="/timer" element={<Timer />} />
             <Route path="/pomodoro" element={<Pomodoro />} />
+            <Route path="/uuid-v4" element={<UUIDv4 />} />
           </Route>
         </Routes>
       </div>
