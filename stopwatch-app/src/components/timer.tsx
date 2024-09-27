@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Timer() {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(5 * 60);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Timer() {
   };
 
   const reset = () => {
-    setTime(0);
+    setTime(5 * 60);
     setIsRunning(false);
   };
 
