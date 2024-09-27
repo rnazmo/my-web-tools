@@ -46,6 +46,16 @@ export default function Home() {
             </Link>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Random Strong Generator</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Link to="/random-string" className="text-blue-500 hover:underline">
+              Try it
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     </>
   );

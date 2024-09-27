@@ -35,6 +35,9 @@ export default function Layout() {
           <Link to="/uuid-v4" className="block px-4 py-2 hover:bg-gray-700">
             UUID v4 Generator
           </Link>
+          <Link to="/random-string" className="block px-4 py-2 hover:bg-gray-700">
+            Random String Generator
+          </Link>
         </nav>
       </aside>
       <div className="flex-1">
