@@ -34,10 +34,11 @@ export default function Timer() {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
+    return `${padWithZero(minutes)}:${padWithZero(remainingSeconds)}`;
   };
+
+  const padWithZero = (num: number, length: number = 2): string =>
+    num.toString().padStart(length, "0");
 
   return (
     <>
@@ -48,12 +49,12 @@ export default function Timer() {
           <div className="grid grid-cols-3 gap-2 mb-4">
             {[1, 5, 10, 30, 60, 300].map((seconds) => (
               <Button key={seconds} onClick={() => addTime(seconds)}>
-                +{seconds}秒
+                +{seconds}sec
               </Button>
             ))}
           </div>
           <div className="space-x-4">
-            <Button onClick={startStop}>{isRunning ? "Stop" : "Start"}</Button>
+            <Button onClick={startStop}>{isRunning ? "Pause" : "Start"}</Button>
             <Button onClick={reset}>Reset</Button>
           </div>
         </CardContent>

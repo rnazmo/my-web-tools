@@ -3,40 +3,40 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Stopwatch() {
+  const [elapsedMilliSeconds, setElapsedMilliSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [elapsedMilliSec, setElapsedMilliSec] = useState(0);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     if (isRunning) {
       intervalId = setInterval(
-        () => setElapsedMilliSec((prevTime) => prevTime + 10),
+        () => setElapsedMilliSeconds((time) => time + 10),
         10
       ); // Update per 10ms
     }
     return () => clearInterval(intervalId);
-  }, [isRunning, elapsedMilliSec]);
+  }, [isRunning, elapsedMilliSeconds]);
 
-  const toggleRunning = () => {
-    setIsRunning((isRunning) => !isRunning);
+  const startPause = () => {
+    setIsRunning(!isRunning);
   };
 
   const reset = () => {
     setIsRunning(false);
-    setElapsedMilliSec(0);
+    setElapsedMilliSeconds(0);
   };
   const extractTime = (
-    milliSec: number
+    ms: number
   ): {
     hours: string;
     minutes: string;
     seconds: string;
     milliseconds: string;
   } => {
-    const hours = Math.floor(milliSec / 3600000);
-    const minutes = Math.floor((milliSec % 3600000) / 60000);
-    const seconds = Math.floor((milliSec % 60000) / 1000);
-    const milliseconds = Math.floor(milliSec % 1000);
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const milliseconds = Math.floor(ms % 1000);
     return {
       hours: padWithZero(hours),
       minutes: padWithZero(minutes),
@@ -49,7 +49,7 @@ export default function Stopwatch() {
     num.toString().padStart(length, "0");
 
   const { hours, minutes, seconds, milliseconds } =
-    extractTime(elapsedMilliSec);
+    extractTime(elapsedMilliSeconds);
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function Stopwatch() {
             <span className="text-4xl">{milliseconds}</span>
           </div>
           <div className="space-x-4">
-            <Button onClick={toggleRunning}>
+            <Button onClick={startPause}>
               {isRunning ? "Pause" : "Start"}
             </Button>
             <Button onClick={reset}>Reset</Button>
