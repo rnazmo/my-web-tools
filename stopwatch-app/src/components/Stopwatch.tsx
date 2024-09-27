@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Stopwatch = () => {
@@ -19,7 +19,9 @@ const Stopwatch = () => {
     return () => clearInterval(interval);
   }, [isRunning, elapsedTimeInMilliseconds]);
 
-  const formatTime = (elapsedTimeInMilliseconds: number): {
+  const formatTime = (
+    elapsedTimeInMilliseconds: number
+  ): {
     hours: string;
     minutes: string;
     seconds: string;
@@ -40,7 +42,9 @@ const Stopwatch = () => {
 
   const padWithZero = (num: number, length: number = 2): string =>
     num.toString().padStart(length, "0");
-  const { hours, minutes, seconds, milliseconds } = formatTime(elapsedTimeInMilliseconds);
+  const { hours, minutes, seconds, milliseconds } = formatTime(
+    elapsedTimeInMilliseconds
+  );
 
   const toggleRunning = () => {
     setIsRunning((isRunning) => !isRunning);
@@ -79,11 +83,7 @@ const Stopwatch = () => {
                 Pause
               </Button>
             )}
-            <Button
-              variant="danger"
-              size="lg"
-              onClick={reset}
-            >
+            <Button variant="danger" size="lg" onClick={reset}>
               Reset
             </Button>
           </div>
@@ -91,6 +91,6 @@ const Stopwatch = () => {
       </Row>
     </Container>
   );
-}
+};
 
 export default Stopwatch;
