@@ -60,7 +60,7 @@ export default function Stopwatch() {
           </div>
           <div className="space-x-4">
             <Button onClick={toggleRunning}>
-              {isRunning ? "Start" : "Pause"}
+              {isRunning ? "Pause" : "Start"}
             </Button>
             <Button onClick={reset}>Reset</Button>
           </div>
