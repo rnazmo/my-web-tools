@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Stopwatch() {
   const [elapsedMilliSeconds, setElapsedMilliSeconds] = useState(0);
@@ -57,8 +58,8 @@ export default function Stopwatch() {
           {hours}:{minutes}:{seconds}.<span>{milliseconds}</span>
         </div>
         <div>
-          <button onClick={startPause}>{isRunning ? "Pause" : "Start"}</button>
-          <button onClick={reset}>Reset</button>
+          <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
+          <Button onClick={reset}>Reset</Button>
         </div>
       </div>
     </>
