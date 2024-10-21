@@ -36,6 +36,16 @@ export default function Home() {
             </Link>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>UUID v4 Generator</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Link to="/uuid-v4" className="text-blue-500 hover:underline">
+              Try it
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     </>
   );
