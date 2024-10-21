@@ -1,54 +1,66 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function Stopwatch() {
-  const [isActive, setIsActive] = useState(false);
-  const [time, setTime] = useState(0);
+export default function Stopwatch() {
+  const [elapsedMilliSeconds, setElapsedMilliSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isActive) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 10); // 10ミリ秒ごとに更新
-      }, 10);
-    } else if (!isActive && time !== 0) {
-      clearInterval(interval);
+    let intervalId: NodeJS.Timeout;
+    if (isRunning) {
+      intervalId = setInterval(
+        () => setElapsedMilliSeconds((time) => time + 10),
+        10,
+      ); // Update per 10ms
     }
-    return () => clearInterval(interval);
-  }, [isActive, time]);
-  const formatTime = (time: number) => {
-    const getSeconds = `0${Math.floor((time / 1000) % 60)}`.slice(-2);
-    const getMinutes = `0${Math.floor((time / 60000) % 60)}`.slice(-2);
-    const getHours = `0${Math.floor((time / 3600000) % 24)}`.slice(-2);
-    const getMilliseconds = Math.floor((time % 1000) / 10);
+    return () => clearInterval(intervalId);
+  }, [isRunning, elapsedMilliSeconds]);
+
+  const startPause = () => {
+    setIsRunning(!isRunning);
+  };
+
+  const reset = () => {
+    setIsRunning(false);
+    setElapsedMilliSeconds(0);
+  };
+  const extractTime = (
+    ms: number,
+  ): {
+    hours: string;
+    minutes: string;
+    seconds: string;
+    milliseconds: string;
+  } => {
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const milliseconds = Math.floor(ms % 1000);
     return {
-      hours: getHours,
-      minutes: getMinutes,
-      seconds: getSeconds,
-      milliseconds:
-        getMilliseconds < 10 ? `0${getMilliseconds}` : getMilliseconds, // ゼロパディング
+      hours: padWithZero(hours),
+      minutes: padWithZero(minutes),
+      seconds: padWithZero(seconds),
+      milliseconds: padWithZero(milliseconds / 10), // Show only last 2 digits of milliseconds
     };
   };
-  const { hours, minutes, seconds, milliseconds } = formatTime(time);
+
+  const padWithZero = (num: number, length: number = 2): string =>
+    num.toString().padStart(length, "0");
+
+  const { hours, minutes, seconds, milliseconds } =
+    extractTime(elapsedMilliSeconds);
+
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Stopwatch App</h1>
-      <div className="elapsed-time">
-        {hours}:{minutes}:{seconds}:
-        <span className="milliseconds">{milliseconds}</span>
-      </div>
+    <>
+      <h1>Stopwatch</h1>
       <div>
-        <button onClick={() => setIsActive(!isActive)}>
-          {isActive ? "Stop" : "Start"}
-        </button>
-        <button
-          onClick={() => {
-            setIsActive(false);
-            setTime(0);
-          }}
-        >
-          Reset
-        </button>
+        <div>
+          {hours}:{minutes}:{seconds}.<span>{milliseconds}</span>
+        </div>
+        <div>
+          <button onClick={startPause}>{isRunning ? "Pause" : "Start"}</button>
+          <button onClick={reset}>Reset</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
-export default Stopwatch;
