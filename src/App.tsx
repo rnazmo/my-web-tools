@@ -1,9 +1,10 @@
 import "./App.css";
+import Stopwatch from "./components/stopwatch.tsx";
 
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <Stopwatch />
     </>
   );
 }
