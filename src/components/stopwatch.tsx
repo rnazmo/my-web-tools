@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Stopwatch() {
   const [elapsedMilliSeconds, setElapsedMilliSeconds] = useState(0);
@@ -52,16 +53,21 @@ export default function Stopwatch() {
 
   return (
     <>
-      <h1>Stopwatch</h1>
-      <div>
-        <div>
-          {hours}:{minutes}:{seconds}.<span>{milliseconds}</span>
-        </div>
-        <div>
-          <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
-          <Button onClick={reset}>Reset</Button>
-        </div>
-      </div>
+      <h1 className="text-3xl font-bold mb-6">Stopwatch</h1>
+      <Card>
+        <CardContent className="flex flex-col items-center p-6">
+          <div className="text-6xl font-mono mb-6">
+            {hours}:{minutes}:{seconds}.
+            <span className="text-4xl">{milliseconds}</span>
+          </div>
+          <div className="space-x-4">
+            <Button onClick={startPause}>
+              {isRunning ? "Pause" : "Start"}
+            </Button>
+            <Button onClick={reset}>Reset</Button>
+          </div>
+        </CardContent>
+      </Card>
     </>
   );
 }
