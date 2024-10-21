@@ -26,6 +26,9 @@ export default function Layout() {
           <Link to="/stopwatch" className="block px-4 py-2 hover:bg-gray-700">
             Stopwatch
           </Link>
+          <Link to="/timer" className="block px-4 py-2 hover:bg-gray-700">
+            Timer
+          </Link>
         </nav>
       </aside>
       <div className="flex-1">
