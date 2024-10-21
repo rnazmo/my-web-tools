@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/layout";
+import Home from "./components/home";
+import Stopwatch from "./components/stopwatch.tsx";
+import Timer from "./components/timer";
+import Pomodoro from "./components/pomodoro";
+import UUIDv4 from "./components/uuid-v4";
+import RandomString from "./components/random-string";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div className="app">
+        {/* Ref: https://github.com/remix-run/react-router/blob/8b31f25afffcd9b5b9ea88e36ea776d40c07b0cf/examples/basic/src/App.tsx */}
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/stopwatch" element={<Stopwatch />} />
+            <Route path="/timer" element={<Timer />} />
+            <Route path="/pomodoro" element={<Pomodoro />} />
+            <Route path="/uuid-v4" element={<UUIDv4 />} />
+            <Route path="/random-string" element={<RandomString />} />
+          </Route>
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
-
-export default App
