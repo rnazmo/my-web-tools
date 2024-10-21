@@ -3,6 +3,7 @@ import Layout from "./components/layout";
 import Home from "./components/home";
 import Stopwatch from "./components/stopwatch.tsx";
 import Timer from "./components/timer";
+import Pomodoro from "./components/pomodoro";
 import UUIDv4 from "./components/uuid-v4";
 import "./App.css";
 
