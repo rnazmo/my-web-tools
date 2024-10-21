@@ -15,6 +15,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="/stopwatch" element={<Stopwatch />} />
             <Route path="/timer" element={<Timer />} />
+            <Route path="/pomodoro" element={<Pomodoro />} />
           </Route>
         </Routes>
       </div>
