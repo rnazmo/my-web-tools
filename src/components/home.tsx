@@ -16,6 +16,16 @@ export default function Home() {
             </Link>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Timer</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Link to="/timer" className="text-blue-500 hover:underline">
+              Try it
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     </>
   );
